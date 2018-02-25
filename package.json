@@ -1,0 +1,77 @@
+{
+  "name": "koa-homepage-graphql",
+  "version": "1.0.0",
+  "description": "My homepage design by koa and graphql",
+  "scripts": {
+    "start": "nodemon build/dev-server.js",
+    "dev": "nodemon build/dev-server.js",
+    "build": "node build/build.js",
+    "lint": "eslint --ext .js src"
+  },
+  "_moduleAliases": {
+    "@": "src",
+    "config": "src/config",
+    "controllers": "src/controllers",
+    "middleware": "src/middleware",
+    "models": "src/models",
+    "plugins": "src/plugins",
+    "routes": "src/routes",
+    "services": "src/services",
+    "utils": "src/utils"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nymlc/koa-homepage-graphql.git"
+  },
+  "keywords": [],
+  "author": "nymlc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nymlc/koa-homepage-graphql/issues"
+  },
+  "homepage": "https://github.com/nymlc/koa-homepage-graphql#readme",
+  "dependencies": {
+    "apollo-server-koa": "^1.3.2",
+    "graphql": "^0.13.1",
+    "graphql-compose": "^3.0.6",
+    "graphql-compose-mongoose": "^3.1.1",
+    "ioredis": "^3.2.2",
+    "jsonwebtoken": "^8.1.1",
+    "koa": "^2.5.0",
+    "koa-body": "^2.5.0",
+    "koa-compose": "^4.0.0",
+    "koa-jwt": "^3.3.0",
+    "koa-multer": "^1.0.2",
+    "koa-router": "^7.4.0",
+    "koa-static2": "^0.1.8",
+    "lodash": "^4.17.5",
+    "log4js": "^2.5.3",
+    "module-alias": "^2.0.6",
+    "mongoose": "^5.0.7",
+    "nodemailer": "^4.6.0",
+    "require-directory": "^2.1.1"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.2",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "colors": "^1.1.2",
+    "eslint": "^4.18.1",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-html": "^4.0.2",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "koa-logger": "^3.1.0",
+    "nodemon": "^1.15.1"
+  }
+}
