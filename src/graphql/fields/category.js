@@ -4,6 +4,7 @@ import { GraphQLString, GraphQLNonNull } from 'graphql';
 import { UserTC } from './user';
 import wrapResolvers from '../wrapper';
 import mongoid from 'graphql-compose-mongoose/lib/types/mongoid';
+import { getDecodedTokenFromContext } from '@/utils/graphql-utils';
 const CategoryModel = mongoose.model('Category');
 // STEP 2: CONVERT MONGOOSE MODEL TO GraphQL PIECES
 const customizationOptions = {}; // left it empty for simplicity, described below
@@ -31,19 +32,15 @@ CategoryTC.addResolver({
     type: CategoryTC.get('$removeById').getType(),
     resolve: ({ _, args, context, info }) => {
         const { name, author } = args;
-        let user_id;
-        try {
-            user_id = context.auth.decodedToken.userId;
-        } catch (error) {
-            user_id = null;
-        }
+        const decodedToken = getDecodedTokenFromContext(context);
+        const { userId } = decodedToken;
         if (!name) {
             return Promise.reject(new Error('Category.removeById resolver requires args.name value'));
         }
         if (!author) {
             return Promise.reject(new Error('Category.removeById resolver requires args.author value'));
         }
-        if (user_id !== author) {
+        if (userId !== author) {
             return Promise.reject(new Error('Permission Denied!'));
         }
         return CategoryModel.findOne({ author: mongoose.Types.ObjectId(author), name }).then(doc => doc).then(doc => {

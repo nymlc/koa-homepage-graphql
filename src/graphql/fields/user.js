@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import composeWithMongoose from 'graphql-compose-mongoose';
 import wrapResolvers from '../wrapper';
+import { getDecodedTokenFromContext } from '@/utils/graphql-utils';
 const UserModel = mongoose.model('User');
 const customizationOptions = {
     name: 'name',
@@ -34,13 +35,9 @@ const UserTC = composeWithMongoose(UserModel, customizationOptions);
 UserTC.extendField('password', {
     description: 'May see only self',
     resolve: (source, args, context) => {
-        const { auth } = context;
-        if (auth.decodedToken) {
-            const { decodedToken: { userId: user_id, role } } = auth;
-            return user_id === source._id.toString() || role === 'admin' ? source.password : null;
-        } else {
-            return null;
-        }
+        const decodedToken = getDecodedTokenFromContext(context);
+        const { userId, role } = decodedToken;
+        return userId === source._id.toString() || role === 'admin' ? source.password : null;
     },
     projection: { _id: 1 }
 });
