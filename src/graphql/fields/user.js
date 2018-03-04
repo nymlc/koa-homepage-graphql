@@ -36,8 +36,8 @@ UserTC.extendField('password', {
     resolve: (source, args, context) => {
         const { auth } = context;
         if (auth.decodedToken) {
-            const { decodedToken: { userId: user_id, role } } = auth;
-            return user_id === source._id.toString() || role === 'admin' ? source.password : null;
+            const { decodedToken: { userId, role } } = auth;
+            return userId === source._id.toString() || role === 'admin' ? source.password : null;
         } else {
             return null;
         }

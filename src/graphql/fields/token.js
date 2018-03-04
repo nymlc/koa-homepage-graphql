@@ -76,9 +76,9 @@ TokenTC.addResolver({
     // },
     type: TokenTC,
     resolve: async({ _, args, context, info }) => {
-        const { auth: { decodedToken: { user_id, role } } } = context;
-        console.log(user_id, role);
-        return createTokenResponse(user_id, role);
+        const { auth: { decodedToken: { userId, role } } } = context;
+        console.log(userId, role);
+        return createTokenResponse(userId, role);
     }
 });
 

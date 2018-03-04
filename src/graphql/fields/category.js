@@ -31,11 +31,11 @@ CategoryTC.addResolver({
     type: CategoryTC.get('$removeById').getType(),
     resolve: ({ _, args, context, info }) => {
         const { name, author } = args;
-        let user_id;
+        let userId;
         try {
-            user_id = context.auth.decodedToken.userId;
+            userId = context.auth.decodedToken.userId;
         } catch (error) {
-            user_id = null;
+            userId = null;
         }
         if (!name) {
             return Promise.reject(new Error('Category.removeById resolver requires args.name value'));
@@ -43,7 +43,7 @@ CategoryTC.addResolver({
         if (!author) {
             return Promise.reject(new Error('Category.removeById resolver requires args.author value'));
         }
-        if (user_id !== author) {
+        if (userId !== author) {
             return Promise.reject(new Error('Permission Denied!'));
         }
         return CategoryModel.findOne({ author: mongoose.Types.ObjectId(author), name }).then(doc => doc).then(doc => {

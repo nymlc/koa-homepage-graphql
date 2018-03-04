@@ -48,7 +48,20 @@ const scopesSchema = {
     }
 };
 const articleQuery = {
-    articleMany: ArticleTC.get('$findMany')
+    articleById: ArticleTC.getResolver('findById'),
+    articleMany: ArticleTC.get('$findMany').addFilterArg({
+        name: 'categorysIn',
+        type: '[String]',
+        query: (query, value) => {
+            query.categorys = { $in: value };
+        }
+    }).addFilterArg({
+        name: 'tagsIn',
+        type: '[String]',
+        query: (query, value) => {
+            query.tags = { $in: value };
+        }
+    })
 };
 const articleMutation = wrapResolvers({
     // articleRemoveByName: ArticleTC.get('$removeByName'),

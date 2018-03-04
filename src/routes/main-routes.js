@@ -41,7 +41,7 @@ router.post('/graphql', async(ctx, next) => {
     })
     .get('/graphiql', graphiqlKoa({
         endpointURL: '/graphql',
-        passHeader: '"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1OWEyZWQ3ODg2NTI1ODQ2ZTU3NjI5NGIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE1MTk1NzMzMzMsImV4cCI6MTUxOTU3NTEzM30.Pw8ot94NFe4H1Ed1BcLXFw_ts1o-EQlx8grlKrRDnns"'
+        passHeader: '"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1OWEyZWQ3ODg2NTI1ODQ2ZTU3NjI5NGIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE1MjAxMzA2MDcsImV4cCI6MTUyMDEzMjQwN30.3gEl4XgM6jwnCc9UHIDanK-IrEmg7gDnktZ4Mhe_tuI"'
         // passHeader: '"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1YTY0YTk4MmI3MThlOWEzMmJjNTJkODUiLCJyb2xlIjoidXNlciIsImlhdCI6MTUxOTU3MzQ0NCwiZXhwIjoxNTE5NTc1MjQ0fQ.ZJqcn2CxNpRFa-GPe5miTCeWEk8whGMUL4wrGEADjno"'
     }));
 export default router;

@@ -17,7 +17,7 @@ const ArticleSchema = Schema({
         type: String,
         required: true
     },
-    titleColor: {
+    title_color: {
         type: String
     },
     content: {

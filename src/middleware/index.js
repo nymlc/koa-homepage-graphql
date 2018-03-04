@@ -4,7 +4,8 @@ import KoaStatic2 from 'koa-static2';
 import config from 'config';
 import path from 'path';
 import MainRoutes from 'routes/main-routes';
-import header from 'middleware/set-header';
+import KoaCors2 from 'koa2-cors';
+// import header from 'middleware/set-header';
 import logger from 'middleware/logger';
 import errorCatch from 'middleware/error-catch';
 import auth from './auth';
@@ -18,14 +19,35 @@ const body = KoaBody({
     multipart: false,
     strict: false,
     formidable: {
-        uploadDir: path.join(__dirname, '../../assets/uploads/tmp')// 不用
+        uploadDir: path.join(__dirname, '../../assets/uploads/tmp') // 不用
     },
     jsonLimit: '10mb',
     formLimit: '10mb',
     textLimit: '10mb'
 });
-const middlewareArr = [errorCatch, koaStatic, koaAuth, body,
-    MainRoutes.routes(), MainRoutes.allowedMethods(), header];
+const koaCors = KoaCors2({
+    origin(ctx) {
+        const hostname = ctx.request.header.host.split(':')[0];
+        if (hostname === 'localhost' || hostname === '127.0.0.1') {
+            return '*';
+        }
+        return false;
+    },
+    exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
+    maxAge: 5,
+    credentials: true,
+    allowMethods: ['GET', 'POST', 'DELETE'],
+    allowHeaders: ['Content-Type', 'Authorization', 'Accept']
+});
+const middlewareArr = [
+    errorCatch,
+    koaStatic,
+    koaAuth,
+    body,
+    koaCors,
+    MainRoutes.routes(),
+    MainRoutes.allowedMethods()
+];
 if (env === 'development') {
     // logger
     middlewareArr.unshift(logger);
