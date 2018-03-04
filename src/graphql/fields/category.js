@@ -32,17 +32,8 @@ CategoryTC.addResolver({
     type: CategoryTC.get('$removeById').getType(),
     resolve: ({ _, args, context, info }) => {
         const { name, author } = args;
-<<<<<<< HEAD
-        let userId;
-        try {
-            userId = context.auth.decodedToken.userId;
-        } catch (error) {
-            userId = null;
-        }
-=======
         const decodedToken = getDecodedTokenFromContext(context);
         const { userId } = decodedToken;
->>>>>>> a7f3c1ab0c2fe62be7aad64054fa271bcaec588b
         if (!name) {
             return Promise.reject(new Error('Category.removeById resolver requires args.name value'));
         }
