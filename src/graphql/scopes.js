@@ -1,21 +1,21 @@
-function isOwnerById(decodedToken = {}, args) {
-    const { userId: user_id } = decodedToken;
+function isOwnerById(decodedToken, args) {
+    const { userId } = decodedToken;
     let isOwner = false;
-    if (user_id && user_id === args._id) {
+    if (userId && userId === args._id) {
         isOwner = true;
     }
     return isOwner;
 }
-function isOwnerByRecordId(decodedToken = {}, args) {
-    const { userId: user_id } = decodedToken;
+function isOwnerByRecordId(decodedToken, args) {
+    const { userId } = decodedToken;
     let isOwner = false;
-    if (user_id && args.record && user_id === args.record._id) {
+    if (userId && args.record && userId === args.record._id) {
         isOwner = true;
     }
     return isOwner;
 }
-function isOwnerByCustomId(decodedToken = {}, args, customId = 'record.author') {
-    const { userId: user_id } = decodedToken;
+function isOwnerByCustomId(decodedToken, args, customId = 'record.author') {
+    const { userId } = decodedToken;
     let isOwner = false;
     let owner_id = args;
     for (const key of customId.split('.')) {
@@ -26,12 +26,12 @@ function isOwnerByCustomId(decodedToken = {}, args, customId = 'record.author') 
             break;
         }
     }
-    if (user_id && user_id === owner_id) {
+    if (userId && userId === owner_id) {
         isOwner = true;
     }
     return isOwner;
 }
-function isAdmin(decodedToken = {}) {
+function isAdmin(decodedToken) {
     const { role } = decodedToken;
     return role === 'admin';
 }
@@ -64,10 +64,10 @@ const scopes = {
             return isOwnerByCustomId(decodedToken, args) ? 'tag:create:self' : 'tag:create';
         },
         tagUpdateById: '',
-        tagRemoveById(decodedToken = {}, args) {
-            const { userId: user_id } = decodedToken;
+        tagRemoveById(decodedToken, args) {
+            const { userId } = decodedToken;
             rp.beforeRecordMutate = (doc, resolverParams) => {
-                if (doc && doc.author.toString() === user_id) {
+                if (doc && doc.author.toString() === userId) {
                     return doc;
                 }
                 return null;
@@ -80,10 +80,10 @@ const scopes = {
             return isOwnerByCustomId(decodedToken, args) ? 'tag:create:self' : 'tag:create';
         },
         categoryUpdateById: '',
-        categoryRemoveById(decodedToken = {}, args) {
-            const { userId: user_id } = decodedToken;
+        categoryRemoveById(decodedToken, args) {
+            const { userId } = decodedToken;
             rp.beforeRecordMutate = (doc, resolverParams) => {
-                if (doc && doc.author.toString() === user_id) {
+                if (doc && doc.author.toString() === userId) {
                     return doc;
                 }
                 return null;
@@ -94,10 +94,10 @@ const scopes = {
         },
         articleCreate: '',
         articleUpdateById: '',
-        articleRemoveById(decodedToken = {}, args) {
-            const { userId: user_id } = decodedToken;
+        articleRemoveById(decodedToken, args) {
+            const { userId } = decodedToken;
             rp.beforeRecordMutate = (doc, resolverParams) => {
-                if (doc && doc.author.toString() === user_id) {
+                if (doc && doc.author.toString() === userId) {
                     return doc;
                 }
                 return null;

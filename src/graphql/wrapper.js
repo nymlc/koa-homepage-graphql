@@ -49,16 +49,16 @@ function validateScope(required, provided) {
     return hasScope;
 }
 /*
-// token=>user_id     args=>recode=>_id     args=>_id
-// token=>user_id     args=>recode=>author
+// token=>userId     args=>recode=>_id     args=>_id
+// token=>userId     args=>recode=>author
 const ownerAccess = (rp, field = 'author') => {
     const { context: { auth }, args: { record } } = rp;
     if (!auth) return new ContextError();
     const { decodedToken } = auth;
     // 若token存在
     if (decodedToken) {
-        const { user_id } = decodedToken;
-        if (record && record[field].toString() === user_id) {
+        const { userId } = decodedToken;
+        if (record && record[field].toString() === ) {
 
         } else {
             return new AuthorizationError();
@@ -117,7 +117,7 @@ const permissionAccess = async rp => {
     let requiredScope = scopes[operation][fieldName];
     if (requiredScope && typeof requiredScope === 'function') {
         const { decodedToken } = auth;
-        requiredScope = await Promise.resolve().then(() => requiredScope(decodedToken, args, rp));
+        requiredScope = await Promise.resolve().then(() => requiredScope(decodedToken || {}, args, rp));
     }
     // 若需要权限
     if (requiredScope &&
@@ -145,6 +145,7 @@ const permissionAccess = async rp => {
         } else {
             let accessToken;
             // 获取内存中的accesstoken
+            console.log(accessTokenKey);
             await redis.get(accessTokenKey).then(result => {
                 accessToken = result;
             });

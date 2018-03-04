@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 import redis from '@/utils/db/redisdb';
 import config from '@/config';
 import { getTokenKey } from 'utils/api/res-utils';
+import { getDecodedTokenFromContext } from '@/utils/graphql-utils';
 import wrapResolvers from '../wrapper';
 const { System: { expire_access_token, expire_refresh_token, publicKey } } = config;
 // 创建token
@@ -76,8 +77,14 @@ TokenTC.addResolver({
     // },
     type: TokenTC,
     resolve: async({ _, args, context, info }) => {
+<<<<<<< HEAD
         const { auth: { decodedToken: { userId, role } } } = context;
         console.log(userId, role);
+=======
+        const decodedToken = getDecodedTokenFromContext(context);
+        const { userId, role } = decodedToken;
+        // console.log(userId, role);
+>>>>>>> a7f3c1ab0c2fe62be7aad64054fa271bcaec588b
         return createTokenResponse(userId, role);
     }
 });
