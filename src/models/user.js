@@ -10,8 +10,11 @@ const UserSchema = mongoose.Schema({
     },
     password: String,
     role: {
-        type: String,
+        type: String
         // enum: ['admin', 'user', 'guest']
+    },
+    avatar: {
+        type: String
     }
 });
 // 根据schema生成model
